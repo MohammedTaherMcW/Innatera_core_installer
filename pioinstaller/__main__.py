@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# import subprocess   
-# subprocess.check_call(["python", "-m", "pip", "install", "click"])
+
 
 import logging
 import os

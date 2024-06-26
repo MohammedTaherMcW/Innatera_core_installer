@@ -28,8 +28,8 @@ import semantic_version
 from pioinstaller import __version__, exception, home, util
 
 log = logging.getLogger(__name__)
-
-PIO_CORE_DEVELOP_URL = "https://github.com/MohammedTaherR/pioinstaller/raw/ebb4194ffcac8b8736581b68d8a8c349401a5d77/platformio.zip"
+CORE_DEVELOP_URL = "https://github.com/MohammedTaherMcW/Innatera_core.git"
+# CORE_DEVELOP_URL = "https://github.com/MohammedTaherR/pioinstaller/raw/ebb4194ffcac8b8736581b68d8a8c349401a5d77/platformio.zip"
 UPDATE_INTERVAL = 60 * 60 * 24 * 3  # 3 days
 
 
@@ -103,17 +103,24 @@ def _install_platformio_core(shutdown_piohome=True, develop=False, ignore_python
         penv.get_penv_bin_dir(penv_dir), "python.exe" if util.IS_WINDOWS else "python"
     )
     command = [python_exe, "-m", "pip", "install", "-U"]
+    # subprocess.call(["git", "clone", CORE_DEVELOP_URL])
     click.echo("Installing PlatformIO Core into an isolated environment `%s`" % penv_dir)
     develop = True
     if develop:
         click.echo("Installing a development version of PlatformIO Core")
-        command.append(PIO_CORE_DEVELOP_URL)
+        command.append(CORE_DEVELOP_URL)
     else:
         click.echo("Installing PlatformIO Core ", develop)
-        command.append(PIO_CORE_DEVELOP_URL)
+        command.append(CORE_DEVELOP_URL)
     try:
+        
+        subprocess.call(
+            ["git", "clone", "https://github.com/MohammedTaherMcW/Innatera_core.git"]
+        )
 
-        subprocess.check_call(command)
+        subprocess.check_call([python_exe, "-m", "pip", "install", "-U", "./Innatera_core"])
+
+        # subprocess.check_call(command)
 
     except Exception as e:  # pylint:disable=broad-except
         error = str(e)
@@ -220,8 +227,6 @@ def check(develop=False, global_=False, auto_upgrade=False, version_spec=None):
             raise exception.InvalidPlatformIOCore("Could not import PlatformIO module")
 
     return result
-
-
 
 
 def _check_core_version(piocore_version, version_spec):
