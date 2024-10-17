@@ -36,6 +36,8 @@ UPDATE_INTERVAL = 60 * 60 * 24 * 3  # 3 days
 def get_core_dir(force_to_root=False):
     if os.getenv("PLATFORMIO_CORE_DIR"):
         return os.getenv("PLATFORMIO_CORE_DIR")
+    
+    print("get_core_dir", os.getenv("PLATFORMIO_CORE_DIR"), force_to_root)
 
     core_dir = os.path.join(util.expanduser("~"), ".innatera")
     if not util.IS_WINDOWS:
@@ -193,7 +195,7 @@ def check(develop=False, global_=False, auto_upgrade=False, version_spec=None):
     except subprocess.CalledProcessError as e:
         error = e.output.decode()
         raise exception.InvalidPlatformIOCore(
-            "Could not import PlatformIO module. Error: %s" % error
+            "Could not import Innatera module. Error: %s" % error
         )
     piocore_version = convert_version(result.get("core_version"))
     develop = develop or bool(piocore_version.prerelease if piocore_version else False)
@@ -224,7 +226,7 @@ def check(develop=False, global_=False, auto_upgrade=False, version_spec=None):
         try:
             result.update(fetch_python_state(python_exe))
         except:  # pylint:disable=bare-except
-            raise exception.InvalidPlatformIOCore("Could not import PlatformIO module")
+            raise exception.InvalidPlatformIOCore("Could not import Innatera module")
 
     return result
 
@@ -270,7 +272,7 @@ import json
 import platform
 import sys
 
-import platformio
+import innaterapluginio as platformio
 
 if sys.version_info < (3, 6):
     raise Exception(
