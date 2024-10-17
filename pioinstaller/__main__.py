@@ -128,7 +128,7 @@ def core_check(ctx, **kwargs):
         )
     except exception.InvalidPlatformIOCore as e:
         raise click.ClickException(
-            "Compatible PlatformIO Core not found.\nReason: %s" % str(e)
+            "Compatible innatera Core not found.\nReason: %s" % str(e)
         )
 
 

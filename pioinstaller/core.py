@@ -37,11 +37,11 @@ def get_core_dir(force_to_root=False):
     if os.getenv("PLATFORMIO_CORE_DIR"):
         return os.getenv("PLATFORMIO_CORE_DIR")
 
-    core_dir = os.path.join(util.expanduser("~"), ".platformio")
+    core_dir = os.path.join(util.expanduser("~"), ".innatera")
     if not util.IS_WINDOWS:
         return core_dir
 
-    win_root_dir = os.path.splitdrive(core_dir)[0] + "\\.platformio"
+    win_root_dir = os.path.splitdrive(core_dir)[0] + "\\.innatera"
     if os.path.isdir(win_root_dir):
         return win_root_dir
     try:
@@ -104,13 +104,13 @@ def _install_platformio_core(shutdown_piohome=True, develop=False, ignore_python
     )
     command = [python_exe, "-m", "pip", "install", "-U"]
     # subprocess.call(["git", "clone", CORE_DEVELOP_URL])
-    click.echo("Installing PlatformIO Core into an isolated environment `%s`" % penv_dir)
+    click.echo("Installing Innatera Core into an isolated environment `%s`" % penv_dir)
     develop = True
     if develop:
-        click.echo("Installing a development version of PlatformIO Core")
+        click.echo("Installing a development version of Innatera Core")
         command.append(CORE_DEVELOP_URL)
     else:
-        click.echo("Installing PlatformIO Core ", develop)
+        click.echo("Installing Innatera Core ", develop)
         command.append(CORE_DEVELOP_URL)
     try:
         
@@ -134,20 +134,20 @@ def _install_platformio_core(shutdown_piohome=True, develop=False, ignore_python
         )
     platformio_exe = os.path.join(
         penv.get_penv_bin_dir(penv_dir),
-        "platformio.exe" if util.IS_WINDOWS else "platformio",
+        "innaterapluginio.exe" if util.IS_WINDOWS else "innaterapluginio",
     )
 
     click.secho(
-        "\nPlatformIO Core has been successfully installed into an isolated environment `%s`!\n"
+        "\Innatera Core has been successfully installed into an isolated environment `%s`!\n"
         % penv_dir,
         fg="green",
     )
-    click.secho("The full path to `platformio.exe` is `%s`" % platformio_exe, fg="cyan")
+    click.secho("The full path to `Innatera.exe` is `%s`" % platformio_exe, fg="cyan")
     # pylint:disable=line-too-long
     click.secho(
         """
-If you need an access to `platformio.exe` from other applications, please install Shell Commands
-(add PlatformIO Core binary directory `%s` to the system environment PATH variable):
+If you need an access to `Innatera.exe` from other applications, please install Shell Commands
+(add Innatera Core binary directory `%s` to the system environment PATH variable):
 
 See https://docs.platformio.org/page/installation.html#install-shell-commands
 """
@@ -168,16 +168,16 @@ def check(develop=False, global_=False, auto_upgrade=False, version_spec=None):
         )
     )
     platformio_exe = (
-        util.where_is_program("platformio")
+        util.where_is_program("innaterapluginio")
         if global_
         else os.path.join(
             penv.get_penv_bin_dir(),
-            "platformio.exe" if util.IS_WINDOWS else "platformio",
+            "innaterapluginio.exe" if util.IS_WINDOWS else "innaterapluginio",
         )
     )
     if not os.path.isfile(platformio_exe):
         raise exception.InvalidPlatformIOCore(
-            "PlatformIO executable not found in `%s`" % penv.get_penv_bin_dir()
+            "Innatera executable not found in `%s`" % penv.get_penv_bin_dir()
         )
     try:
         subprocess.check_output([platformio_exe, "--help"], stderr=subprocess.STDOUT)
