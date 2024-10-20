@@ -119,16 +119,17 @@ def core_check(ctx, **kwargs):
             auto_upgrade=kwargs.get("auto_upgrade"),
             version_spec=kwargs.get("version_spec"),
         )
+        print("Value of state of the check:", state)
         if kwargs.get("dump_state"):
             core.dump_state(target=str(kwargs.get("dump_state")), state=state)
         click.secho(
-            "Found compatible PlatformIO Core %s -> %s"
+            "Found compatible Innatera Core %s -> %s"
             % (state.get("core_version"), state.get("platformio_exe")),
             fg="green",
         )
     except exception.InvalidPlatformIOCore as e:
         raise click.ClickException(
-            "Compatible PlatformIO Core not found.\nReason: %s" % str(e)
+            "Compatible innatera Core not found.\nReason: %s" % str(e)
         )
 
 
